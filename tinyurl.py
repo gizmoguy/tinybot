@@ -103,15 +103,18 @@ def tiny(user,channel,msg):
         if x.startswith("http://tinyurl.com") \
           or x.startswith("http://preview.tinyurl.com") \
           or x.startswith("http://is.gd") \
+          or x.startswith("http://sla.ac/a/") \
           or x.startswith("http://geek.cn"):
             realurl[x] = x
             return x
         if not debug:
             try:
+                f = fetch_url("http://sla.ac/a/api.php?url=" + urlencode(x))
+                r = f.read()
                 #f = fetch_url("http://is.gd/api.php?longurl=" + x.replace("%","%25"))
                 #r = f.read()
-                f = fetch_url("http://geek.cn/create.php?type=raw&url="+urlencode(x))
-                r = f.read()
+                #f = fetch_url("http://geek.cn/create.php?type=raw&url="+urlencode(x))
+                #r = f.read()
                 print "url:",`x`,"tinyurl:",`r`
                 tinycache[x] = r
                 realurl[r] = x
